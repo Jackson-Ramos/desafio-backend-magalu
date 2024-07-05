@@ -1,4 +1,11 @@
 package com.jcode_development.magalums.model.notification;
 
-public class NotificationRequest {
+import java.time.LocalDateTime;
+
+public record NotificationRequest(
+		LocalDateTime time,
+		String destination,
+		String message,
+		Long channelId,
+		Long statusId) {
 }
