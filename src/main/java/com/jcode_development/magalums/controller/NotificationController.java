@@ -19,7 +19,7 @@ public class NotificationController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<?> save(@RequestBody NotificationRequest data) {
+	public ResponseEntity<String> save(@RequestBody NotificationRequest data) {
 		return this.notificationServices.save(data);
 	}
 	
@@ -34,7 +34,7 @@ public class NotificationController {
 	}
 	
 	@PatchMapping(value = "/{id}")
-	public ResponseEntity<?> cancel(@PathVariable("id") String id) {
+	public ResponseEntity<String> cancel(@PathVariable("id") String id) {
 		return notificationServices.cancel(id);
 	}
 }

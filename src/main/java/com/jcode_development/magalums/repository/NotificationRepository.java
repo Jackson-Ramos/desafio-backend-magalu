@@ -13,15 +13,7 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, String> {
 	
-	/*
-	@Query("SELECT n FROM Notification n WHERE (n.status =: pendingId OR n.status =: errorId) AND n.dateTime <= : CURRENT_TIMESTAMP")
-	List<Notification> findNotificationsByStatusAndDateTime(@Param("pendingId") Long pendingId, @Param("errorId") Long errorId);
-	 */
-	
-	@Query("SELECT n FROM Notification n WHERE (n.status.description = :status1 OR n.status.description = :status2) AND n.dateTime <= :currentDateTime")
-	List<Notification> findNotificationsByStatusAndDateTime(@Param("status1") String status1, @Param("status2") String status2, @Param("currentDateTime") LocalDateTime currentDateTime);
-	
-	
-	List<Notification> findByStatusInAndDateTimeBefore(List<Status> status, LocalDateTime dateTime);
+	@Query("SELECT n FROM Notification n WHERE (n.status = :status1 OR n.status = :status2) AND n.dateTime <= :date")
+	List<Notification> findNotificationsByStatusAndDateTime(@Param("status1") Status status1, @Param("status2") Status status2, @Param("date") LocalDateTime date);
 	
 }

@@ -22,8 +22,10 @@ public class NotificationScheduling {
 	
 	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
 	public void runTasks() {
+		
 		var dateTime = LocalDateTime.now();
 		LOGGER.info("Running at {}", dateTime);
-		notificationServices.checkAndSend();
+		
+		notificationServices.checkAndSend(dateTime);
 	}
 }

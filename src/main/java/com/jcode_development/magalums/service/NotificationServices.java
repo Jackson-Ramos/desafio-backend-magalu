@@ -8,7 +8,6 @@ import com.jcode_development.magalums.model.status.Status;
 import com.jcode_development.magalums.repository.ChannelRepository;
 import com.jcode_development.magalums.repository.NotificationRepository;
 import com.jcode_development.magalums.repository.StatusRepository;
-import com.jcode_development.magalums.scheduling.NotificationScheduling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -69,18 +67,18 @@ public class NotificationServices {
 		var notification = notificationRepository.findById(id);
 		
 		if (notification.isEmpty()) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 		
 		var notificationResponse = Mapper.parseObject(notification.get(), NotificationResponse.class);
 		return ResponseEntity.ok().body(notificationResponse);
 	}
 	
-	public ResponseEntity<?> cancel(String id) {
+	public ResponseEntity<String> cancel(String id) {
 		
 		var notification = notificationRepository.findById(id).orElse(null);
 		if (notification == null) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().body("invalid id: " + id);
 		}
 		
 		var status = statusRepository.findByStatusId(4L);
@@ -90,14 +88,14 @@ public class NotificationServices {
 		return ResponseEntity.noContent().build();
 	}
 	
-	public void checkAndSend() {
+	public void checkAndSend(LocalDateTime dateTime) {
 		
-		String ERROR_STATUS = "ERROR";
-		String PENDING_STATUS = "PENDING";
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		var notifications = notificationRepository.findNotificationsByStatusAndDateTime(PENDING_STATUS, ERROR_STATUS, currentDateTime);
-		
-		notifications.forEach(sendNotification());
+		var notifications = notificationRepository
+				.findNotificationsByStatusAndDateTime(new Status(1L, "PENDING"), new Status(3L, "ERROR"), dateTime);
+		if (!notifications.isEmpty()) {
+			notifications.forEach(sendNotification());
+		}
+		LOGGER.info("Notifications sent to is empty");
 	}
 	
 	private Consumer<Notification> sendNotification() {
