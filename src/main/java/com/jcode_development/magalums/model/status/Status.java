@@ -5,12 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "status")
-public class Status {
+public class Status implements Serializable {
+	
+	@Serial
+	private static final long serialVersionUID = 8326668797259430021L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

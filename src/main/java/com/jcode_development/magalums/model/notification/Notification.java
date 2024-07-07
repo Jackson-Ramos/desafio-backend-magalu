@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,11 +17,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "notifications")
-public class Notification {
+public class Notification implements Serializable {
+	
+	@Serial
+	private static final long serialVersionUID = -4674285576014882223L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	private String id;
 	
 	@Column(name = "date_time")
 	private LocalDateTime dateTime;

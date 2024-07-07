@@ -5,12 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "channels")
-public class Channel {
+public class Channel implements Serializable {
+	
+	@Serial
+	private static final long serialVersionUID = 4799866881240609477L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

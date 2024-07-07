@@ -6,6 +6,5 @@ public record NotificationRequest(
 		LocalDateTime time,
 		String destination,
 		String message,
-		Long channelId,
-		Long statusId) {
+		Long channelId) {
 }
