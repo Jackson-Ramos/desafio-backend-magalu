@@ -2,6 +2,7 @@ server:
   port: 8080
 
 spring:
+  # Database
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/magaludb
@@ -17,7 +18,21 @@ spring:
           dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 
+    #Flyway
     flyway:
       enabled: true
       locations: classpath:db/migration
       baseline-on-migrate: true
+
+  # Java Meil
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password: nbdr urrq plip ckvv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

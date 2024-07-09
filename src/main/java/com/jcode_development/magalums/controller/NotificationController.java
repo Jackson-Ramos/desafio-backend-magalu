@@ -2,7 +2,7 @@ package com.jcode_development.magalums.controller;
 
 import com.jcode_development.magalums.model.notification.NotificationRequest;
 import com.jcode_development.magalums.model.notification.NotificationResponse;
-import com.jcode_development.magalums.service.NotificationServices;
+import com.jcode_development.magalums.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,29 +12,29 @@ import java.util.Set;
 @RequestMapping("/api/notification")
 public class NotificationController {
 	
-	private final NotificationServices notificationServices;
+	private final NotificationService notificationService;
 	
-	public NotificationController(NotificationServices notificationServices) {
-		this.notificationServices = notificationServices;
+	public NotificationController(NotificationService notificationService) {
+		this.notificationService = notificationService;
 	}
 	
 	@PostMapping()
 	public ResponseEntity<String> save(@RequestBody NotificationRequest data) {
-		return this.notificationServices.save(data);
+		return this.notificationService.save(data);
 	}
 	
 	@GetMapping()
 	public ResponseEntity<Set<NotificationResponse>> getNotifications() {
-		return notificationServices.findAll();
+		return notificationService.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<NotificationResponse> getNotification(@PathVariable("id") String id) {
-		return notificationServices.findById(id);
+		return notificationService.findById(id);
 	}
 	
 	@PatchMapping(value = "/{id}")
 	public ResponseEntity<String> cancel(@PathVariable("id") String id) {
-		return notificationServices.cancel(id);
+		return notificationService.cancel(id);
 	}
 }

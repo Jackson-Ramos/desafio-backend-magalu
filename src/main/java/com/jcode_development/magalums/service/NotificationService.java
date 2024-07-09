@@ -19,21 +19,24 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @Service
-public class NotificationServices {
+public class NotificationService {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServices.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationService.class);
 	
 	private final NotificationRepository notificationRepository;
 	private final ChannelRepository channelRepository;
 	private final StatusRepository statusRepository;
+	private final EmailService emailService;
 	
-	public NotificationServices(
+	public NotificationService(
 			NotificationRepository notificationRepository,
 			ChannelRepository channelRepository,
-			StatusRepository statusRepository) {
+			StatusRepository statusRepository,
+			EmailService emailService) {
 		this.notificationRepository = notificationRepository;
 		this.channelRepository = channelRepository;
 		this.statusRepository = statusRepository;
+		this.emailService = emailService;
 	}
 	
 	public ResponseEntity<String> save(NotificationRequest data) {
@@ -101,11 +104,31 @@ public class NotificationServices {
 	private Consumer<Notification> sendNotification() {
 		var status = statusRepository.findByStatusId(2L);
 		return n -> {
-		/*
-		 TODO send message
-		 */
-			n.setStatus(status);
-			notificationRepository.save(n);
+			switch (n.getChannel().getDescription()) {
+				
+				case "EMAIL": {
+					emailService.sendSimpleMessage(n);
+					n.setStatus(status);
+					notificationRepository.save(n);
+					break;
+				}
+				
+				case "SMS": {
+					// TODO sms send
+					break;
+				}
+				
+				case "PUSH": {
+					// TODO push send
+					break;
+				}
+				
+				case "WHATSAPP": {
+					// TODO whatsapp send
+					break;
+				}
+			}
+			
 		};
 	}
 }
