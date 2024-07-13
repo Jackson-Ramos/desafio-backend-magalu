@@ -30,7 +30,7 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username:
+    username: jksr02@gmail.com
     password: nbdr urrq plip ckvv
     properties:
       mail:
