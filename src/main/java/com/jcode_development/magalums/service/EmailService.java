@@ -1,7 +1,9 @@
 package com.jcode_development.magalums.service;
 
 import com.jcode_development.magalums.model.notification.Notification;
+import com.jcode_development.magalums.model.status.Status;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,22 @@ public class EmailService {
 		this.mailSender = mailSender;
 	}
 	
-	public String sendSimpleMessage(Notification notification) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(sender);
-		message.setTo(notification.getDestination());
-		message.setText(notification.getMessage());
-		message.setSubject("Magalums Notification");
-		
-		mailSender.send(message);
-		return "Email successfully sent";
+	public void sendSimpleMessage(Notification notification) {
+		try {
+
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom(sender);
+			message.setTo(notification.getDestination());
+			message.setText(notification.getMessage());
+			message.setSubject("Magalums Notification");
+
+			mailSender.send(message);
+			notification.setStatus(new Status(2L, "SUCCESS"));
+
+		} catch (MailException e) {
+
+			notification.setStatus(new Status(3L, "ERROR"));
+
+		}
 	}
 }

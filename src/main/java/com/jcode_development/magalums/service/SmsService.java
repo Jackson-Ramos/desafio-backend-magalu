@@ -15,13 +15,13 @@ public class SmsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmsService.class);
 
-   // Vai ser definido no application.yml
+    @Value("")
     private String fromNumber;
 
-    // Vai ser definido no application.yml
+    @Value("")
     private String ACCOUNT_SID;
 
-    // Vai ser definido no application.yml
+    @Value("")
     private String AUTH_TOKEN;
 
     public void sendSms(Notification notification) {
@@ -34,11 +34,16 @@ public class SmsService {
                             new PhoneNumber(fromNumber),
                             notification.getMessage())
                     .create();
+
             notification.setStatus(new Status(2L, "SUCCESS"));
+
             LOGGER.info("SMS sent");
+
         } catch (Exception e) {
+
             notification.setStatus(new Status(3L, "ERROR"));
             LOGGER.error(e.getMessage());
+
         }
     }
 }
