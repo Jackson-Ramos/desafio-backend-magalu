@@ -27,17 +27,20 @@ public class NotificationService {
 	private final ChannelRepository channelRepository;
 	private final StatusRepository statusRepository;
 	private final EmailService emailService;
+	private final SmsService smsService;
 	
 	public NotificationService(
-			NotificationRepository notificationRepository,
-			ChannelRepository channelRepository,
-			StatusRepository statusRepository,
-			EmailService emailService) {
+            NotificationRepository notificationRepository,
+            ChannelRepository channelRepository,
+            StatusRepository statusRepository,
+            EmailService emailService,
+			SmsService smsService) {
 		this.notificationRepository = notificationRepository;
 		this.channelRepository = channelRepository;
 		this.statusRepository = statusRepository;
 		this.emailService = emailService;
-	}
+        this.smsService = smsService;
+    }
 	
 	public ResponseEntity<String> save(NotificationRequest data) {
 		
@@ -114,7 +117,8 @@ public class NotificationService {
 				}
 				
 				case "SMS": {
-					// TODO sms send
+					smsService.sendSms(n);
+					notificationRepository.save(n);
 					break;
 				}
 				
