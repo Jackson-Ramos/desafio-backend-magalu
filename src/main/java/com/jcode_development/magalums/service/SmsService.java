@@ -15,13 +15,13 @@ public class SmsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmsService.class);
 
-    @Value("")
+    @Value("${twilio.from-number}")
     private String fromNumber;
 
-    @Value("")
+    @Value("${twilio.account-sid}")
     private String ACCOUNT_SID;
 
-    @Value("")
+    @Value("${twilio.auth-token}")
     private String AUTH_TOKEN;
 
     public void sendSms(Notification notification) {
