@@ -2,12 +2,6 @@
 server:
   port: 8080
 
-# Configurações SMS
-twilio:
-  account-sid:
-  auth-token:
-  from-number:
-
 spring:
   # Configurações do banco de dados
   datasource:
@@ -45,3 +39,17 @@ spring:
           starttls:
             enable: true
         debug: true
+
+  # Configurações SMS
+  twilio:
+    account-sid:
+    auth-token:
+    from-number:
+
+  # Configurações do Swagger
+  springdoc:
+    pathsToMatch:
+      - /api/**
+      - /auth/**
+    swagger-ui:
+      use-root-path: true
