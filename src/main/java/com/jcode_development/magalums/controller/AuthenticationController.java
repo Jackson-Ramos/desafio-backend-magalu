@@ -4,6 +4,7 @@ import com.jcode_development.magalums.model.user.AccountCredentials;
 import com.jcode_development.magalums.model.user.AccountRegister;
 import com.jcode_development.magalums.model.user.User;
 import com.jcode_development.magalums.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +33,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody AccountCredentials credentials) {
+    public ResponseEntity<Void> login(@RequestBody @Valid AccountCredentials credentials) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(credentials.login(), credentials.password());
         var authentication = authenticationManager.authenticate(usernamePassword);
 

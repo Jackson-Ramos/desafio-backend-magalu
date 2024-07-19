@@ -53,3 +53,8 @@ spring:
       - /auth/**
     swagger-ui:
       use-root-path: true
+
+  security:
+    jwt:
+      token:
+        secret-key: Jc98Rz
