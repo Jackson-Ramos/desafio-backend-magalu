@@ -2,8 +2,10 @@ package com.jcode_development.magalums.controller;
 
 import com.jcode_development.magalums.model.user.AccountCredentials;
 import com.jcode_development.magalums.model.user.AccountRegister;
+import com.jcode_development.magalums.model.user.LoginResponse;
 import com.jcode_development.magalums.model.user.User;
 import com.jcode_development.magalums.repository.UserRepository;
+import com.jcode_development.magalums.security.JwtTokenProvide;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
@@ -21,25 +23,29 @@ public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final JwtTokenProvide jwtTokenProvide;
 
     @Getter
     private User loggedUser;
 
     public AuthenticationController(
             AuthenticationManager authenticationManager,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            JwtTokenProvide jwtTokenProvide) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.jwtTokenProvide = jwtTokenProvide;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody @Valid AccountCredentials credentials) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid AccountCredentials credentials) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(credentials.login(), credentials.password());
         var authentication = authenticationManager.authenticate(usernamePassword);
 
         if (authentication.isAuthenticated()) {
             loggedUser = (User) userRepository.loadUserByLogin(credentials.login());
-            return ResponseEntity.ok().build();
+            var token = jwtTokenProvide.generateToken((User) authentication.getPrincipal());
+            return ResponseEntity.ok().body(new LoginResponse(token));
         }
         return ResponseEntity.badRequest().build();
     }
