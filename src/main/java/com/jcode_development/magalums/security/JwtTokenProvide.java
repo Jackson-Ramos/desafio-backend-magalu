@@ -21,17 +21,12 @@ public class JwtTokenProvide {
     @Value("${spring.security.jwt.token.secret-key}")
     private String secretKey;
 
-    Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
-    String issuerUrl = ServletUriComponentsBuilder
-            .fromCurrentContextPath()
-            .build()
-            .toString();
 
     public String generateToken(User user) {
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
         try {
             return JWT.create()
-                    .withIssuer(issuerUrl)
+                    .withIssuer("magalums")
                     .withSubject(user.getLogin())
                     .withExpiresAt(getIssuedAt())
                     .sign(algorithm);
@@ -42,9 +37,10 @@ public class JwtTokenProvide {
     }
 
     public String validateJwtToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
         try {
             return JWT.require(algorithm)
-                    .withIssuer(issuerUrl)
+                    .withIssuer("magalums")
                     .build()
                     .verify(token)
                     .getSubject();
