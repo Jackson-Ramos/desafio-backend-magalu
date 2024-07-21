@@ -1,5 +1,6 @@
 package com.jcode_development.magalums.service;
 
+import com.jcode_development.magalums.controller.AuthenticationController;
 import com.jcode_development.magalums.mapper.Mapper;
 import com.jcode_development.magalums.model.notification.Notification;
 import com.jcode_development.magalums.model.notification.NotificationRequest;
@@ -28,18 +29,21 @@ public class NotificationService {
     private final StatusRepository statusRepository;
     private final EmailService emailService;
     private final SmsService smsService;
+    private final AuthenticationController authenticationController;
 
     public NotificationService(
             NotificationRepository notificationRepository,
             ChannelRepository channelRepository,
             StatusRepository statusRepository,
             EmailService emailService,
-            SmsService smsService) {
+            SmsService smsService,
+            AuthenticationController authenticationController) {
         this.notificationRepository = notificationRepository;
         this.channelRepository = channelRepository;
         this.statusRepository = statusRepository;
         this.emailService = emailService;
         this.smsService = smsService;
+        this.authenticationController = authenticationController;
     }
 
     public ResponseEntity<String> save(NotificationRequest data) {
@@ -56,6 +60,8 @@ public class NotificationService {
             notification.setMessage(data.message());
             notification.setChannel(channel);
             notification.setStatus(status);
+            notification.setUser(authenticationController.getLoggedUser());
+
             notificationRepository.save(notification);
 
             return ResponseEntity.accepted().build();

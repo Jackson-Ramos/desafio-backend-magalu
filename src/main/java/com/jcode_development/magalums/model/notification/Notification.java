@@ -2,6 +2,7 @@ package com.jcode_development.magalums.model.notification;
 
 import com.jcode_development.magalums.model.channel.Channel;
 import com.jcode_development.magalums.model.status.Status;
+import com.jcode_development.magalums.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,10 @@ public class Notification implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	@Column(name = "date_time")
 	private LocalDateTime dateTime;
