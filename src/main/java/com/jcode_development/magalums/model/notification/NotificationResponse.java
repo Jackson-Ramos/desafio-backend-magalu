@@ -3,6 +3,7 @@ package com.jcode_development.magalums.model.notification;
 import com.jcode_development.magalums.model.channel.Channel;
 import com.jcode_development.magalums.model.status.Status;
 import com.jcode_development.magalums.model.user.User;
+import com.jcode_development.magalums.model.user.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,5 @@ public class NotificationResponse extends RepresentationModel<NotificationRespon
 	private String message;
 	private Channel channel;
 	private Status status;
-	private User user;
+	private UserResponse user;
 }
