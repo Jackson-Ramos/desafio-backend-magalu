@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/notification").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -47,7 +47,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

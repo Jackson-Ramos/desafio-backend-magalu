@@ -14,12 +14,12 @@ import java.io.Serializable;
 @Entity
 @Table(name = "status")
 public class Status implements Serializable {
-	
-	@Serial
-	private static final long serialVersionUID = 8326668797259430021L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String description;
+
+    @Serial
+    private static final long serialVersionUID = 8326668797259430021L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String description;
 }

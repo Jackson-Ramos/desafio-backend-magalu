@@ -11,21 +11,21 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class NotificationScheduling {
-	
-	private final NotificationService notificationService;
-	
-	public NotificationScheduling(NotificationService notificationService) {
-		this.notificationService = notificationService;
-	}
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationScheduling.class);
-	
-	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
-	public void runTasks() {
-		
-		var dateTime = LocalDateTime.now();
-		LOGGER.info("Running at {}", dateTime);
-		
-		notificationService.checkAndSend(dateTime);
-	}
+
+    private final NotificationService notificationService;
+
+    public NotificationScheduling(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationScheduling.class);
+
+    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+    public void runTasks() {
+
+        var dateTime = LocalDateTime.now();
+        LOGGER.info("Running at {}", dateTime);
+
+        notificationService.checkAndSend(dateTime);
+    }
 }

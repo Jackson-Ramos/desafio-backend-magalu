@@ -18,33 +18,33 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "notifications")
 public class Notification implements Serializable {
-	
-	@Serial
-	private static final long serialVersionUID = -4674285576014882223L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	@Column(name = "date_time")
-	private LocalDateTime dateTime;
-	
-	@Column(name = "destination")
-	private String destination;
-	
-	@Column(name = "message")
-	private String message;
-	
-	@ManyToOne
-	@JoinColumn(name = "channel_id")
-	private Channel channel;
-	
-	@ManyToOne
-	@JoinColumn(name = "status_id")
-	private Status status;
-	
+    @Serial
+    private static final long serialVersionUID = -4674285576014882223L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
+
+    @Column(name = "destination")
+    private String destination;
+
+    @Column(name = "message")
+    private String message;
+
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
 }

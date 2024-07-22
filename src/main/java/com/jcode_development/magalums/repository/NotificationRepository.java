@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, String> {
-	
-	@Query("SELECT n FROM Notification n WHERE (n.status = :status1 OR n.status = :status2) AND n.dateTime <= :date")
-	List<Notification> findNotificationsByStatusAndDateTime(@Param("status1") Status status1, @Param("status2") Status status2, @Param("date") LocalDateTime date);
-	
+
+    @Query("SELECT n FROM Notification n WHERE (n.status = :status1 OR n.status = :status2) AND n.dateTime <= :date")
+    List<Notification> findNotificationsByStatusAndDateTime(@Param("status1") Status status1, @Param("status2") Status status2, @Param("date") LocalDateTime date);
+
 }
