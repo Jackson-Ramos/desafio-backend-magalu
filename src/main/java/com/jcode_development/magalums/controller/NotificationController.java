@@ -27,9 +27,16 @@ public class NotificationController implements NotificationDocumentation {
         return this.notificationService.save(data);
     }
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    //    Notificações de todos os usuarios
+    @GetMapping(value = "all", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Set<NotificationResponse>> getNotifications() {
         return notificationService.findAll();
+    }
+
+    //    Notificações apenas do usuario
+    @GetMapping(value = "user", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Set<NotificationResponse>> getUserNotifications() {
+        return notificationService.findNotificationsByUser();
     }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

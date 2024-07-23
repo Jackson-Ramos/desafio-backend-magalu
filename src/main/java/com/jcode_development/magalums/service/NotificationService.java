@@ -6,6 +6,7 @@ import com.jcode_development.magalums.model.notification.Notification;
 import com.jcode_development.magalums.model.notification.NotificationRequest;
 import com.jcode_development.magalums.model.notification.NotificationResponse;
 import com.jcode_development.magalums.model.status.Status;
+import com.jcode_development.magalums.model.user.User;
 import com.jcode_development.magalums.repository.ChannelRepository;
 import com.jcode_development.magalums.repository.NotificationRepository;
 import com.jcode_development.magalums.repository.StatusRepository;
@@ -72,6 +73,14 @@ public class NotificationService {
 
     public ResponseEntity<Set<NotificationResponse>> findAll() {
         var notifications = new HashSet<>(Mapper.parseObjects(notificationRepository.findAll(), NotificationResponse.class));
+        return ResponseEntity.ok(notifications);
+    }
+
+    public ResponseEntity<Set<NotificationResponse>> findNotificationsByUser() {
+        var notifications = new HashSet<>(
+                Mapper.parseObjects(notificationRepository.findNotificationsByUser(authenticationController.getLoggedUser()),
+                        NotificationResponse.class)
+        );
         return ResponseEntity.ok(notifications);
     }
 
