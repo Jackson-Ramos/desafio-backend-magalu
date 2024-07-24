@@ -10,6 +10,7 @@ import com.jcode_development.magalums.model.user.User;
 import com.jcode_development.magalums.repository.ChannelRepository;
 import com.jcode_development.magalums.repository.NotificationRepository;
 import com.jcode_development.magalums.repository.StatusRepository;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class NotificationService {
         this.authenticationController = authenticationController;
     }
 
-    public ResponseEntity<String> save(NotificationRequest data) {
+    public ResponseEntity<String> save(@Valid NotificationRequest data) {
 
         LocalDateTime now = LocalDateTime.now();
         if (!data.time().isBefore(now)) {

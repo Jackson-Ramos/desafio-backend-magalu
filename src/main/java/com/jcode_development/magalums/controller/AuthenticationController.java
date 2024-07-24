@@ -51,7 +51,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody AccountRegister register) {
+    public ResponseEntity<Void> register(@RequestBody @Valid AccountRegister register) {
 
         if (userRepository.loadUserByLogin(register.login()) != null) {
             return ResponseEntity.badRequest().build();

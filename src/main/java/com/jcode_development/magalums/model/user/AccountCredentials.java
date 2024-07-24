@@ -1,4 +1,9 @@
 package com.jcode_development.magalums.model.user;
 
-public record AccountCredentials(String login, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record AccountCredentials(
+        @NotBlank String login,
+        @NotBlank String password
+) {
 }

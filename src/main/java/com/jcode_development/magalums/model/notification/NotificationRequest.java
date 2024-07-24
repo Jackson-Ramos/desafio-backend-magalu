@@ -1,10 +1,13 @@
 package com.jcode_development.magalums.model.notification;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public record NotificationRequest(
-        LocalDateTime time,
-        String destination,
-        String message,
-        Long channelId) {
+        @NotNull LocalDateTime time,
+        @NotBlank String destination,
+        @NotBlank String message,
+        @NotNull Long channelId) {
 }

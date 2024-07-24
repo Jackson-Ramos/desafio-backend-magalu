@@ -1,4 +1,10 @@
 package com.jcode_development.magalums.model.user;
 
-public record AccountRegister(String login, String password, Permissions permissions) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record AccountRegister(
+       @NotBlank String login,
+       @NotBlank String password,
+       @NotNull Permissions permissions) {
 }
