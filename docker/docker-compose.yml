@@ -1,0 +1,16 @@
+services:
+  mysql-notification:
+    image: mysql:latest
+    container_name: mysql-container-notification
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: notification-database
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+     - "3307:3306"
+    volumes:
+      - mysql-data-notification:/var/lib/mysql
+
+volumes:
+  mysql-data-notification:
