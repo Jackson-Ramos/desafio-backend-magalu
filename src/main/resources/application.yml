@@ -10,7 +10,7 @@ spring:
   # Configurações do banco de dados
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/notification-database
+    url: jdbc:mysql://localhost:3306/notification-database
     username: admin
     password: root
 
